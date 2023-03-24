@@ -71,7 +71,7 @@ function SignIn() {
             <div className="form">
               <div className="greet-text"> Welcome to Programmer's Todo List </div>
               <div className="label-text"> Sign In </div>
-              <input type="text" value={username} placeholder="Enter username" onChange={(e)=> setUsername(e.target.value) } required/>
+              <input type="text" value={username.trim()} placeholder="Enter username" onChange={(e)=> setUsername(e.target.value.trim()) } required/>
               { !username && <div className="error" style={{width:"335px"}}> Please enter username! </div>}
 
               <input type="password" placeholder="Enter password" onChange={(e)=> setPassword(e.target.value) } required/>

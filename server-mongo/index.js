@@ -1,10 +1,11 @@
 const express = require('express');
-require("dotenv").config();
+const dotenv = require("dotenv").config();
 const app = express();
 const cors = require("cors");
 const bodyparser = require("body-parser");
 const mongoose = require("mongoose");
-const DATABASE = process.env.DATABASE;
+const USERNAME = process.env.USERNAME_DB;
+const PASSWORD = process.env.PASSWORD_DB;
 
 app.use(express.json());
 app.use(cors());
@@ -12,7 +13,7 @@ app.use(bodyparser.urlencoded({extended:true}));
 
 // Database
 mongoose.connect(
-    DATABASE,
+    `mongodb+srv://${USERNAME}:${PASSWORD}@todo.axhmmzb.mongodb.net/test`,
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
