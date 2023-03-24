@@ -6,6 +6,7 @@ const bodyparser = require("body-parser");
 const mongoose = require("mongoose");
 const USERNAME = process.env.USERNAME_DB;
 const PASSWORD = process.env.PASSWORD_DB;
+const DB_NAME = process.env.DB_NAME;
 
 app.use(express.json());
 app.use(cors());
@@ -13,7 +14,7 @@ app.use(bodyparser.urlencoded({extended:true}));
 
 // Database
 mongoose.connect(
-    `mongodb+srv://${USERNAME}:${PASSWORD}@todo.axhmmzb.mongodb.net/test`,
+    `mongodb+srv://${USERNAME}:${PASSWORD}@todo.axhmmzb.mongodb.net/${DB_NAME}`,
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
