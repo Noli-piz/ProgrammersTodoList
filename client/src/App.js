@@ -14,7 +14,7 @@ import AlertModal from './components/AlertModal'
 function App() {
 
   
-  let apiBaseUrl = "https://programmerstodolist.onrender.com/";
+  let apiBaseUrl = "http://localhost:3003";
   const [alert, setAlert] = useState({"action" : '' , 'message' : ''});
 
   return (
