@@ -14,11 +14,11 @@ app.use(bodyparser.urlencoded({extended:true}));
 
 // Database
 mongoose.connect(
-    `mongodb+srv://${USERNAME}:${PASSWORD}@todo.axhmmzb.mongodb.net/${DB_NAME}`,
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    }
+  `mongodb+srv://${USERNAME}:${PASSWORD}@todo.axhmmzb.mongodb.net/${DB_NAME}`,
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  }
 );
 
 const db = mongoose.connection
@@ -31,6 +31,8 @@ app.use("/accounts", accountsRouter);
 
 const todosRouter = require('./routes/tbl_todos')
 app.use("/todos", todosRouter);
+
+
 
 
 app.listen(3003, () =>{

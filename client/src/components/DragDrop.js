@@ -6,6 +6,7 @@ import "../App.css";
 import axios from 'axios'
 import AddTaskModal from './AddTaskModal';
 import { ApiContext, AlertContext } from "../context/Context";
+import {AiOutlineLoading3Quarters } from 'react-icons/ai';
 
 function DragDrop() {
   let navigate = useNavigate();
@@ -13,6 +14,8 @@ function DragDrop() {
   const { setAlert } = useContext(AlertContext);
 
   const [ refresh , forceRefresh] = useReducer(x=>x+1, 0);
+  const [ showLoading , setShowLoading ] = useState(false);
+
   const [ showAddModal , setShowAddModal] = useState(false);
   const [ selectedStatus , setSelectedStatus] = useState();
   const [ onTask , setOnTask ] = useState([]);
@@ -21,6 +24,7 @@ function DragDrop() {
 
   // Retrieve Data
   useEffect(()=>{
+    setShowLoading(true);
     axios.get( apiBaseUrl + '/todos/', 
     { 
       params: { 'username' : localStorage.getItem('username') },
@@ -28,9 +32,11 @@ function DragDrop() {
     } ).then(function (response) {
 
       if(response.data.error){
+        setShowLoading(false);
         return alert(response.data.error);
       }
 
+      setShowLoading(false);
       const taskList = response.data.filter((a) => a.status === "task");
       setOnTask(taskList);
 
@@ -39,6 +45,7 @@ function DragDrop() {
 
       const doneTaskList = response.data.filter((a) => a.status === "done");
       setOnDoneTask(doneTaskList);
+      setShowLoading(false);
     })
 
   }, [refresh])
@@ -125,6 +132,7 @@ function DragDrop() {
           </div>
 
           <div className="board" ref={drop} style={isOver?{backgroundColor:"honeydew"} : {}}>
+            { showLoading && <AiOutlineLoading3Quarters className="loading" style={{width:"100%"}} />} 
             {onTask.map((data) => {
                 return <Task id={data._id} key={data._id} title={data.title} description={data.description} category={data.category} deleteTask={deleteTask} />;
             })}
@@ -138,6 +146,7 @@ function DragDrop() {
           </div>
 
           <div className="board" ref={dropToOnGoing} style={isOver2?{backgroundColor:"honeydew"} : {}}>
+            { showLoading && <AiOutlineLoading3Quarters className="loading" style={{width:"100%"}} />} 
             {onGoingTask.map((data) => {
               return <Task id={data._id} key={data._id} title={data.title} description={data.description} category={data.category} deleteTask={deleteTask} />;
             })}
@@ -152,6 +161,7 @@ function DragDrop() {
           </div>
 
           <div className="board" ref={dropToDone} style={isOver3?{backgroundColor:"honeydew"} : {}}>
+            { showLoading && <AiOutlineLoading3Quarters className="loading" style={{width:"100%"}} />} 
             {onDoneTask.map((data) => {
               return <Task id={data._id} key={data._id} title={data.title} description={data.description}  category={data.category} deleteTask={deleteTask}  />;
             })}

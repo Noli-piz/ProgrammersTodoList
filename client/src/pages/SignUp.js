@@ -167,8 +167,8 @@ function SignUp() {
                   { passContent[4].condition_meet ? <AiFillCheckCircle className="icon-password-content" /> : <IoMdRadioButtonOff className="icon-password-content"/> } 
                   No whitespace
                 </div>
-
               </div>
+              
               <button type="submit" className="btn-signup" onClick={()=> onSignUp()} disabled={showLoading}> 
                 { !showLoading ? 'SIGN UP' : <AiOutlineLoading3Quarters className="loading"/>} 
               </button>
